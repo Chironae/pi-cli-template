@@ -1,5 +1,5 @@
 #!/bin/bash
-VERSION="0.1.2"
+VERSION="0.1.3"
 
 echo "🧪 Running your-tool.sh (v$VERSION)"
 echo "Put your actual CLI logic here."
