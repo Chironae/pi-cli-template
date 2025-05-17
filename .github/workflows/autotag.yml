@@ -1,0 +1,23 @@
+name: Auto Tag From Version
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Detect version and tag
+        run: |
+          VERSION=$(grep VERSION your-tool.sh | cut -d'"' -f2)
+          git fetch --tags
+          if git rev-parse "v$VERSION" >/dev/null 2>&1; then
+            echo "Tag already exists"
+          else
+            git config user.name github-actions
+            git config user.email actions@github.com
+            git tag "v$VERSION"
+            git push origin "v$VERSION"
+          fi

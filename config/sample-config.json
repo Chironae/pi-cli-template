@@ -1,0 +1,5 @@
+{
+  "option_a": true,
+  "example_path": "./somefile.txt",
+  "debug_mode": false
+}
