@@ -1,0 +1,13 @@
+# Ignore any leftover version files
+VERSION
+
+# Editor backup files
+*~
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Python cache (if needed)
+__pycache__/
+*.pyc
