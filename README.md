@@ -2,7 +2,7 @@
 
 *Starter kit for building clean, release-ready CLI tools on your Raspberry Pi.*
 
-[![GitHub release](https://img.shields.io/github/v/release/YOUR_USERNAME/pi-cli-template?include_prereleases&sort=semver)](https://github.com/YOUR_USERNAME/pi-cli-template/releases)
+[![GitHub release](https://img.shields.io/github/v/release/Chironae/pi-cli-template?include_prereleases&sort=semver)](https://github.com/Chironae/pi-cli-template/releases)
 
 ---
 
