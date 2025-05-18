@@ -1,13 +1,13 @@
-# Ignore any leftover version files
+# Prevent rogue version file from breaking workflows
 VERSION
-
-# Editor backup files
-*~
 
 # OS junk
 .DS_Store
 Thumbs.db
 
-# Python cache (if needed)
+# Editor backups
+*~
+
+# Python bytecode (just in case someone goes rogue)
 __pycache__/
 *.pyc

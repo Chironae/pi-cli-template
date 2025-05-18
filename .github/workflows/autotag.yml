@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - name: Detect version and tag
         run: |
           RAW_VERSION_LINE=$(grep '^VERSION="' your-tool.sh | head -n1)

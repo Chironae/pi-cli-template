@@ -6,10 +6,12 @@ help:
 	@echo "  make install         - Install $(APP_NAME) globally"
 	@echo "  make uninstall       - Remove from system"
 	@echo "  make test            - Run syntax check"
+	@echo "  make release         - Bump, commit, tag, push"
 	@echo "  make release-patch   - Bump patch version"
 	@echo "  make release-minor   - Bump minor version"
 	@echo "  make release-major   - Bump major version"
-	@echo "  make changelog-edit  - Open latest changelog entry"
+	@echo "  make tag-release     - Create and push git tag"
+	@echo "  make changelog-edit  - Edit latest changelog entry"
 
 install:
 	chmod +x $(APP_NAME).sh
@@ -31,7 +33,8 @@ release-major:
 	@$(MAKE) bump VERSION_PART=major
 
 bump:
-	@OLD=$$(grep VERSION $(APP_NAME).sh | cut -d'"' -f2); \
+	@echo "🔧 Bumping $(VERSION_PART) version..."
+	@OLD=$$(grep -m1 'VERSION="' $(APP_NAME).sh | sed -E 's/[^0-9.]*([0-9]+\.[0-9]+\.[0-9]+).*/\1/'); \
 	MAJOR=$$(echo $$OLD | cut -d. -f1); \
 	MINOR=$$(echo $$OLD | cut -d. -f2); \
 	PATCH=$$(echo $$OLD | cut -d. -f3); \
@@ -44,6 +47,20 @@ bump:
 	git add $(APP_NAME).sh CHANGELOG.md; \
 	git commit -m "Bump version to $$NEW_VERSION"; \
 	git push
+
+tag-release:
+	@echo "🏷️  Tagging current version..."
+	@VERSION=$$(grep '^VERSION="' $(APP_NAME).sh | cut -d'"' -f2); \
+	if git rev-parse "v$$VERSION" >/dev/null 2>&1; then \
+	  echo "❌ Tag v$$VERSION already exists. Skipping."; \
+	else \
+	  git tag "v$$VERSION"; \
+	  git push origin "v$$VERSION"; \
+	  echo "✅ Tagged and pushed: v$$VERSION"; \
+	fi
+
+release: release-patch tag-release
+	@echo "🚀 Full release pushed and tagged!"
 
 changelog-edit:
 	@LATEST=$$(grep '^## \[' CHANGELOG.md | head -n 1); \
